@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cyhak70uojmej"]
+
+[ext_resource type="Script" uid="uid://ckn73uwwev3f3" path="res://scenes/render_circle.gd" id="1_7s4qf"]
+[ext_resource type="Script" uid="uid://bew4u4l2kn3tk" path="res://scenes/ball.gd" id="1_cxlvu"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cxlvu"]
+resource_local_to_scene = true
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j5px3"]
+resource_local_to_scene = true
+radius = 50.0
+
+[node name="Ball" type="RigidBody2D" unique_id=57495380]
+physics_material_override = SubResource("PhysicsMaterial_cxlvu")
+gravity_scale = 0.0
+linear_damp_mode = 1
+script = ExtResource("1_cxlvu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1502138511]
+shape = SubResource("CircleShape2D_j5px3")
+
+[node name="RenderCircle" type="Node2D" parent="." unique_id=1652002622]
+script = ExtResource("1_7s4qf")
