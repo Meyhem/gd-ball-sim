@@ -4,18 +4,18 @@
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j5px3"]
 normal = Vector2(1, 0)
-distance = -579.0265
+distance = -576.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_twpsu"]
 normal = Vector2(0, 1)
-distance = -322.2801
+distance = -324.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_lrqlo"]
 normal = Vector2(-1, 0)
-distance = -576.94543
+distance = -576.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_sqa0i"]
-distance = -325.0
+distance = -324.0
 
 [node name="Root" type="Node2D" unique_id=1291459419]
 script = ExtResource("1_j5px3")
@@ -35,3 +35,5 @@ shape = SubResource("WorldBoundaryShape2D_lrqlo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundariesStaticBody" unique_id=1921007491]
 shape = SubResource("WorldBoundaryShape2D_sqa0i")
+
+[node name="Nucleus" type="Node" parent="." unique_id=1466856339]

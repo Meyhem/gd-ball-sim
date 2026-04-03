@@ -1,33 +1,31 @@
 extends Node2D
 
+var right_mouse_held: bool = false
+
+@export var attraction_strength: float = 1000.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
-	set_process_input(true)
+	set_physics_process(true)
 	var ball_scene = preload("res://scenes/ball.tscn")
 	var screen_size = get_viewport().get_visible_rect().size
-	for i in range(20):
+	for i in range(50):
 		var ball = ball_scene.instantiate()
 		ball.position = Vector2(randf() * screen_size.x - screen_size.x / 2, randf() * screen_size.y - screen_size.y / 2)
-		ball.radius = randf() * 30 + 20
+		ball.radius = randf() * 10 + 5
 		ball.nudge()
-		add_child(ball)
+		$Nucleus.add_child(ball)
 
+func _physics_process(_delta: float) -> void:
+	var balls = $Nucleus.get_children()
+	if balls.size() < 2:
+		return
+	var centroid = Vector2.ZERO
+	for ball in balls:
+		centroid += ball.global_position
+	centroid /= balls.size()
+	for ball in balls:
+		var direction = (centroid - ball.global_position).normalized()
+		ball.apply_central_force(direction * attraction_strength)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		var click_pos_viewport = get_viewport().get_mouse_position()
-		var camera = get_viewport().get_camera_2d()
-		var click_pos_world = camera.get_viewport_transform().affine_inverse() * click_pos_viewport
-		for child in get_children():
-			if child is RigidBody2D:
-				var direction = (click_pos_world - child.global_position).normalized()
-				var impulse_strength = 1000.0
-				var impulse = direction * impulse_strength
-				child.apply_central_impulse(impulse)
