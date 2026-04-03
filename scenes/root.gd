@@ -28,4 +28,3 @@ func _physics_process(_delta: float) -> void:
 	for ball in balls:
 		var direction = (centroid - ball.global_position).normalized()
 		ball.apply_central_force(direction * attraction_strength)
-
